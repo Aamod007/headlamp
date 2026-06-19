@@ -62,6 +62,12 @@ describe('zoom load/save', () => {
     await expect(loadZoomFactor(filePath)).resolves.toBe(0.7);
   });
 
+  it('saves the clamped zoom factor when the value is out of range', async () => {
+    saveZoomFactor(filePath, 10);
+
+    await expect(loadZoomFactor(filePath)).resolves.toBe(5);
+  });
+
   it('loads the default zoom factor when the file is missing', async () => {
     await expect(loadZoomFactor(filePath)).resolves.toBe(DEFAULT_ZOOM_FACTOR);
   });

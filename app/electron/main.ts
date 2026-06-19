@@ -1342,8 +1342,7 @@ function setZoom(factor: number) {
 }
 
 function adjustZoom(delta: number) {
-  const newZoom = clampZoom(cachedZoom + delta);
-  setZoom(newZoom);
+  setZoom(cachedZoom + delta);
 }
 
 function startElectron() {
@@ -1806,7 +1805,6 @@ function startElectron() {
     isQuitting = true;
     cleanupHeadlampTray();
     hasTray = false;
-    saveZoomFactor(ZOOM_FILE_PATH, cachedZoom);
     i18n.off('languageChanged');
     if (mainWindow) {
       mainWindow.removeAllListeners('close');
