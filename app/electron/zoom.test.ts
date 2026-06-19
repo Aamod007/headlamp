@@ -57,13 +57,13 @@ describe('zoom load/save', () => {
   });
 
   it('saves and loads the zoom factor', async () => {
-    saveZoomFactor(filePath, 0.7);
+    await saveZoomFactor(filePath, 0.7);
 
     await expect(loadZoomFactor(filePath)).resolves.toBe(0.7);
   });
 
   it('saves the clamped zoom factor when the value is out of range', async () => {
-    saveZoomFactor(filePath, 10);
+    await saveZoomFactor(filePath, 10);
 
     await expect(loadZoomFactor(filePath)).resolves.toBe(5);
   });

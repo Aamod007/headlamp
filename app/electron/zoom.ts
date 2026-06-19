@@ -15,7 +15,6 @@
  */
 
 import * as fsPromises from 'fs/promises';
-import fs from 'node:fs';
 
 export const DEFAULT_ZOOM_FACTOR = 1.0;
 
@@ -29,11 +28,9 @@ export function clampZoom(factor: number) {
 
 export function saveZoomFactor(filePath: string, factor: number) {
   const clamped = clampZoom(factor);
-  try {
-    fs.writeFileSync(filePath, JSON.stringify({ zoomFactor: clamped }), 'utf-8');
-  } catch (err) {
-    console.error('Failed to save zoom factor:', err);
-  }
+  return fsPromises
+    .writeFile(filePath, JSON.stringify({ zoomFactor: clamped }), 'utf-8')
+    .catch(err => console.error('Failed to save zoom factor:', err));
 }
 
 export async function loadZoomFactor(filePath: string): Promise<number> {
